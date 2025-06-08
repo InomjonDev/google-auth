@@ -1,4 +1,5 @@
-import { GithubAuthProvider } from 'firebase/auth/web-extension'
+import { GithubAuthProvider } from 'firebase/auth'
+
 import { auth } from './firebase'
 
 import {
@@ -46,6 +47,5 @@ export const doSendEmailVerification = () => {
 
 export const doSignInWithGithub = async () => {
 	const provider = new GithubAuthProvider()
-	const result = await signInWithPopup(auth, provider)
-	return result
+	return signInWithPopup(auth, provider)
 }
