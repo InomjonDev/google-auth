@@ -6,6 +6,7 @@ import { Navigate } from 'react-router-dom'
 import { useAuth } from '../../../contexts/authContext'
 import {
 	doSignInWithEmailAndPassword,
+	doSignInWithGithub,
 	doSignInWithGoogle,
 } from '../../../firebase/auth'
 
@@ -34,6 +35,17 @@ function Login() {
 			})
 		}
 	}
+
+	const onGithubSignIn = e => {
+		e.preventDefault()
+		if (!isSigninIn) {
+			setIsSigninIn(true)
+			doSignInWithGithub().catch(error => {
+				setErrorMessage(error.message)
+				setIsSigninIn(false)
+			})
+		}
+	}
 	return (
 		<div className='login-page'>
 			{userLoggedIn && <Navigate to={'/'} replace={true} />}
@@ -44,7 +56,7 @@ function Login() {
 						<FaGoogle />
 						<span>Login with Google</span>
 					</button>
-					<button className='form-social-button'>
+					<button className='form-social-button' onClick={onGithubSignIn}>
 						<FaGithub />
 						<span>Login with GitHub</span>
 					</button>

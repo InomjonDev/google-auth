@@ -1,3 +1,4 @@
+import { GithubAuthProvider } from 'firebase/auth/web-extension'
 import { auth } from './firebase'
 
 import {
@@ -41,4 +42,10 @@ export const doSendEmailVerification = () => {
 	return sendEmailVerification(auth.currentUser, {
 		url: `${window.location.origin}/home`,
 	})
+}
+
+export const doSignInWithGithub = async () => {
+	const provider = new GithubAuthProvider()
+	const result = await signInWithPopup(auth, provider)
+	return result
 }
